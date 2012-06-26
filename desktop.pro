@@ -7,6 +7,7 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += . tests ui
 INCLUDEPATH += . ui tests
+SUBDIRS += tests
 
 # Input
 HEADERS += desktopitem.h ui/desktop.h \

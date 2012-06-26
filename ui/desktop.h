@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "../desktopitem.h"
+#include "../items/itembook.h"
 
 namespace Ui {
 class Desktop;
@@ -16,11 +17,14 @@ public:
     explicit Desktop(QWidget *parent = 0);
     ~Desktop();
     int countItems();
-    void addItem(DesktopItem *item);
+    void addItem(IDesktopItem *item);
     
 private:
     Ui::Desktop *ui;
-    QList<DesktopItem> items;
+    WidgetList *items;
+
+private slots:
+    void addNewBook();
 };
 
 #endif // DESKTOP_H
