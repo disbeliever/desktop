@@ -13,16 +13,15 @@ public:
     ItemBook(QString Title);
     QString GetTitle();
     QString GetAuthor();
-    QPoint getCoord();
+    QString GetPath();
+    void SetPath(QString path);
     QGraphicsView *ui;
 private:
     QString Title;
     QString Author;
+    QString Path;
     QList<QString> Tags;
     bool dragging;
-    void mousePressEvent(QMouseEvent*);
-    void mouseReleaseEvent(QMouseEvent*);
-    void mouseMoveEvent(QMouseEvent*);
     void mouseDoubleClickEvent(QMouseEvent*);
 };
 

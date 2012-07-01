@@ -9,12 +9,15 @@ class IDesktopItem : public QGraphicsView
 
 public:
     explicit IDesktopItem(QWidget *parent = 0);
-    virtual QPoint getCoord()=0;
+    //virtual QPoint getCoord()=0;
 private:
-    //virtual QPoint *coord;
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
     void dragEnterEvent(QDragEnterEvent *);
     void dragLeaveEvent(QDragEnterEvent *);
     bool dragging;
+    QPoint getCoord();
 signals:
 
 public slots:

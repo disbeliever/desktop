@@ -3,7 +3,6 @@
 ItemBook::ItemBook()
 {
     dragging = false;
-    ui = new QGraphicsView();
 }
 
 ItemBook::ItemBook(QString Title)
@@ -12,10 +11,16 @@ ItemBook::ItemBook(QString Title)
     this->Title = Title;
 
     QGraphicsScene scene;
+    scene.setParent(this);
     scene.addText(this->Title);
     QPen pen(QColor(0,0,0));
-    scene.addLine(0,0,1,2,pen);
+    scene.addLine(QLineF(0,0,1,2));
+    this->resize(64,64*1.5);
     this->setScene(&scene);
+
+    QGraphicsSimpleTextItem text;
+    text.setText("Hello world");
+    scene.addItem(&text);
 }
 
 QString ItemBook::GetTitle()
@@ -23,27 +28,14 @@ QString ItemBook::GetTitle()
     return Title;
 }
 
-QPoint ItemBook::getCoord() {
-    return QPoint(0,0);
+void ItemBook::SetPath(QString path) {
+    this->Path = path;
 }
 
-void ItemBook::mouseReleaseEvent(QMouseEvent *event) {
-    dragging = false;
-    QMessageBox msgBox;
-    msgBox.setText("Hello world");
-    msgBox.exec();
-}
-
-void ItemBook::mousePressEvent(QMouseEvent *event) {
-    dragging = true;
+QString ItemBook::GetPath() {
+    return this->Path;
 }
 
 void ItemBook::mouseDoubleClickEvent(QMouseEvent *event) {
 
 }
-
-//void ItemBook::mouseMoveEvent(QMouseEvent *event) {
-//    if (dragging) {
-//        move(event->pos());
-//    }
-//}

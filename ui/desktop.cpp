@@ -25,8 +25,6 @@ int Desktop::countItems()
 void Desktop::addNewBook()
 {
     ItemBook *book = new ItemBook("Искусство системного мышления");
-    //book->ui->setParent(ui->graphicsView);
-    //book->ui->show();
     book->setParent(ui->graphicsView);
     book->show();
 }

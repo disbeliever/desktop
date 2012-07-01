@@ -1,5 +1,4 @@
 #include "desktopitem.h"
-#include "items/itembook.h"
 
 IDesktopItem::IDesktopItem(QWidget *parent) :
     QGraphicsView(parent)
@@ -10,23 +9,36 @@ IDesktopItem::IDesktopItem(QWidget *parent) :
 WidgetList::WidgetList() {
     items = new QList<IDesktopItem>();
 
-    ItemBook *book = new ItemBook("Test title");
+    //ItemBook *book = new ItemBook("Test title");
 }
 
 int WidgetList::countItems() {
     return items->count();
 }
 
-void IDesktopItem::dragEnterEvent(QDragEnterEvent *event) {
-    dragging = true;
+void IDesktopItem::dragEnterEvent(QDragEnterEvent*) {
 }
 
-void IDesktopItem::dragLeaveEvent(QDragEnterEvent *event) {
+void IDesktopItem::dragLeaveEvent(QDragEnterEvent*) {
+}
+
+void IDesktopItem::mousePressEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton) {
+        dragging = true;
+    }
+}
+
+void IDesktopItem::mouseReleaseEvent(QMouseEvent *event) {
     dragging = false;
 }
 
-void ItemBook::mouseMoveEvent(QMouseEvent *event) {
+void IDesktopItem::mouseMoveEvent(QMouseEvent *event) {
     if (dragging) {
-        move(event->pos());
+        QPoint point = parentWidget()->mapToGlobal(*(new QPoint(event->globalX() + event->x(), event->globalY() + event->y())));
+        move(point);
     }
+}
+
+QPoint IDesktopItem::getCoord() {
+    return this->pos();
 }
