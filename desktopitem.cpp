@@ -25,17 +25,27 @@ void IDesktopItem::dragLeaveEvent(QDragEnterEvent*) {
 void IDesktopItem::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
         dragging = true;
+        event->accept(); // do not propagate
+        if (isWindow())
+            offset = event->globalPos() - pos();
+        else
+            offset = event->pos();
     }
 }
 
 void IDesktopItem::mouseReleaseEvent(QMouseEvent *event) {
     dragging = false;
+    event->accept();
+    offset = QPoint();
 }
 
 void IDesktopItem::mouseMoveEvent(QMouseEvent *event) {
     if (dragging) {
-        QPoint point = parentWidget()->mapToGlobal(*(new QPoint(event->globalX() + event->x(), event->globalY() + event->y())));
-        move(point);
+        event->accept(); // do not propagate
+        if (isWindow())
+            move(event->globalPos() - offset);
+        else
+            move(mapToParent(event->pos() - offset));
     }
 }
 

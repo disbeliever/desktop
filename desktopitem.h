@@ -17,6 +17,7 @@ private:
     void dragEnterEvent(QDragEnterEvent *);
     void dragLeaveEvent(QDragEnterEvent *);
     bool dragging;
+    QPoint offset;
     QPoint getCoord();
 signals:
 
